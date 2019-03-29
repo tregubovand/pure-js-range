@@ -1,3 +1,5 @@
+
+
 function PureRangeSlider(selector, props) {
     this.containerClass = 'js-pure-range-container';
     this.lineClass = "js-pure-range-line";
@@ -13,11 +15,21 @@ function PureRangeSlider(selector, props) {
     }
 
     this.elem = document.querySelector(selector);
+
+    this.createSlider = function(){
+        let line = document.createElement('div');
+        line.class = this.lineClass;
+        this.elem.appendChild(line);
+
+        let slider = document.createElement('div')
+        slider.class = this.sliderClass;
+        this.elem.appendChild(line);
+
+        this.elem.classList.add(this.containerClass);
+    }
+
+    this.createSlider();
 };
 
-
-PureRangeSlider.prototype.init = function init() {
-
-};
 
 module.exports = PureRangeSlider;
