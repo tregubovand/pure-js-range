@@ -26,7 +26,7 @@ function PureRangeSlider(selector, props) {
         backgroundColor: '#3c3d8f',
         transform: 'translateY(-50%)',
         cursor: 'pointer'
-    }
+    };
 
     if (!(this instanceof PureRangeSlider)) {
         return new PureRangeSlider(selector, props = {});
@@ -48,7 +48,19 @@ function PureRangeSlider(selector, props) {
         this.elem.append(slider);
 
         this.elem.classList.add(this.containerClass);
-    }
+        this.createStops();
+    };
+
+    this.createStops = function(){
+        if(!this.values){
+            for(let i = 0; i < this.finish; i+=this.step){
+                let step = document.createElement('span');
+                step.dataset.value = i;
+                step.style.left = (this.elem.clientWidth / this.finish) * i + 'px';
+                this.elem.append(step);
+            }
+        }
+    };
 
     this.createSlider();
 };
