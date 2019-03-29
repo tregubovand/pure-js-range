@@ -1,0 +1,26 @@
+{
+  "name": "pure-js-range",
+  "version": "1.0.0",
+  "description": "Vanilla js module for custom ranged sliders",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tregubovand/pure-js-range.git"
+  },
+  "keywords": [
+    "js",
+    "vanilla",
+    "js",
+    "range",
+    "slider"
+  ],
+  "author": "Tregubovand",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tregubovand/pure-js-range/issues"
+  },
+  "homepage": "https://github.com/tregubovand/pure-js-range#readme"
+}
