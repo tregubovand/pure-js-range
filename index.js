@@ -20,11 +20,11 @@ function PureRangeSlider(selector, props) {
         let line = document.createElement('div');
         line.classList.add(this.lineClass);
 
-        this.elem.appendChild(line);
+        this.elem.append(line);
 
         let slider = document.createElement('div')
         slider.classList.add(this.sliderClass);
-        this.elem.appendChild(slider);
+        this.elem.append(slider);
 
         this.elem.classList.add(this.containerClass);
     }
