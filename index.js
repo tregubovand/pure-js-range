@@ -18,6 +18,15 @@ function PureRangeSlider(selector, props) {
         top: '50%',
         transform: 'translateY(-50%)'
     };
+    this.sliderStyle = {
+        position: 'absolute',
+        width: '10%',
+        height: '20px',
+        top: '50%',
+        backgroundColor: '#3c3d8f',
+        transform: 'translateY(-50%)',
+        cursor: 'pointer'
+    }
 
     if (!(this instanceof PureRangeSlider)) {
         return new PureRangeSlider(selector, props = {});
@@ -34,6 +43,8 @@ function PureRangeSlider(selector, props) {
 
         let slider = document.createElement('div')
         slider.classList.add(this.sliderClass);
+        slider.style = this.sliderStyle;
+
         this.elem.append(slider);
 
         this.elem.classList.add(this.containerClass);
