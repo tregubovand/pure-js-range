@@ -16,49 +16,83 @@ function PureRangeSlider(selector, props) {
         height: '2px',
         backgroundColor: '#333',
         top: '50%',
-        transform: 'translateY(-50%)'
+        transform: 'translate(-50%, -50%)'
+    };
+    this.containerStyle = {
+        position: 'relative',
+        height: '40px',
+        width: '100%'
     };
     this.sliderStyle = {
         position: 'absolute',
-        width: '10%',
         height: '20px',
         top: '50%',
         backgroundColor: '#3c3d8f',
         transform: 'translateY(-50%)',
         cursor: 'pointer'
     };
+    this.stepStyle = {
+        width: '2px',
+        height: '10px',
+        position: 'absolute',
+        backgroundColor: '#380f4d',
+        top: '50%',
+        transform: 'translate(50%,-50%)',
+    };
 
     if (!(this instanceof PureRangeSlider)) {
         return new PureRangeSlider(selector, props = {});
     }
 
+    Object.assign(this,props);
+
     this.elem = document.querySelector(selector);
 
     this.createSlider = function(){
-        let line = document.createElement('div');
-        line.classList.add(this.lineClass);
-        Object.assign(line.style,this.lineStyle);
+        this.line = document.createElement('div');
+        this.line.classList.add(this.lineClass);
+        Object.assign(this.line.style,this.lineStyle);
 
-        this.elem.append(line);
+        this.elem.append(this.line);
 
-        let slider = document.createElement('div')
-        slider.classList.add(this.sliderClass);
-        Object.assign(slider.style,this.sliderStyle);
+        this.slider = document.createElement('div');
+        this.slider.classList.add(this.sliderClass);
+        Object.assign(this.slider.style,this.sliderStyle);
 
-        this.elem.append(slider);
+        if(!this.values){
+            this.slider.style.width = (this.finish - this.start) / 100 + '%';
+        }else{
+            this.slider.style.width = this.values.length / 100 + '%';
+        }
+
+        this.elem.append(this.slider);
 
         this.elem.classList.add(this.containerClass);
+        Object.assign(this.elem, this.containerStyle);
+
         this.createStops();
     };
 
     this.createStops = function(){
         if(!this.values){
-            for(let i = 0; i < this.finish; i+=this.step){
+            for(let i = this.start; i <= this.finish; i+=this.step){
                 let step = document.createElement('span');
                 step.dataset.value = i;
                 step.style.left = (this.elem.clientWidth / this.finish) * i + 'px';
+                Object.assign(step.style,this.stepStyle);
                 this.elem.append(step);
             }
+        }
+    };
+    this.slider.onmousedown = function(){
+        // let elem = this;
+        let startPosition = this.getBoundingClientRect().x;
+        document.onmousemove = (e) => {
+            this.style.left = startPosition + e.pageX + 'px';
+        };
+        document.onmouseup = () => {
+            document.onmouseup = null;
+            document.onmousemove = null;
         }
     };
 

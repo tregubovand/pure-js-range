@@ -1,6 +1,6 @@
 {
   "name": "pure-js-range",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Vanilla js module for custom ranged sliders",
   "main": "index.js",
   "scripts": {
