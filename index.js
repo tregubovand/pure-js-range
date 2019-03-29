@@ -71,6 +71,7 @@ function PureRangeSlider(selector, props) {
         Object.assign(this.elem, this.containerStyle);
 
         this.createStops();
+        this.initSliding();
     };
 
     this.createStops = function(){
@@ -84,17 +85,20 @@ function PureRangeSlider(selector, props) {
             }
         }
     };
-    this.slider.onmousedown = function(){
-        // let elem = this;
-        let startPosition = this.getBoundingClientRect().x;
-        document.onmousemove = (e) => {
-            this.style.left = startPosition + e.pageX + 'px';
+    this.initSliding = function(){
+        this.slider.onmousedown = function(){
+            // let elem = this;
+            let startPosition = this.getBoundingClientRect().x;
+            document.onmousemove = (e) => {
+                this.style.left = startPosition + e.pageX + 'px';
+            };
+            document.onmouseup = () => {
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
         };
-        document.onmouseup = () => {
-            document.onmouseup = null;
-            document.onmousemove = null;
-        }
-    };
+    }
+
 
     this.createSlider();
 };
