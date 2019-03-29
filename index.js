@@ -10,6 +10,15 @@ function PureRangeSlider(selector, props) {
     this.step = 1;
     this.selector = false;
 
+    this.lineStyle = {
+        position: 'absolute',
+        width: '100%',
+        height: '2px',
+        backgroundColor: '#333',
+        top: '50%',
+        transform: 'translateY(-50%)'
+    };
+
     if (!(this instanceof PureRangeSlider)) {
         return new PureRangeSlider(selector, props = {});
     }
@@ -19,6 +28,7 @@ function PureRangeSlider(selector, props) {
     this.createSlider = function(){
         let line = document.createElement('div');
         line.classList.add(this.lineClass);
+        line.style = this.lineStyle;
 
         this.elem.append(line);
 
