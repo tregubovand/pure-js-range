@@ -44,7 +44,7 @@ function PureRangeSlider(selector, props) {
             for(let i = this.start; i <= this.finish; i+=this.step){
                 let step = document.createElement('span');
                 step.dataset.value = i;
-                step.style.left = (this.elem.clientWidth / this.finish) * i + 'px';
+                step.style.left = (this.elem.clientWidth / this.finish) * (i - this.start) + 'px';
                 Object.assign(step.style,this.stepStyle);
                 this.elem.append(step);
             }
@@ -62,7 +62,7 @@ function PureRangeSlider(selector, props) {
                 document.onmouseup = null;
                 document.onmousemove = null;
             }
-        };
+        }.bind(this);
     };
     this.defaultStyles = function(){
         this.lineStyle = {
