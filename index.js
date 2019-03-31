@@ -2,6 +2,7 @@ function PureRangeSlider(selector, props) {
     this.containerClass = 'js-pure-range-container';
     this.lineClass = "js-pure-range-line";
     this.sliderClass = "js-pure-range-slider";
+    this.stopClass = "js-pure-range-stop";
     this.start = 0;
     this.finish = 100;
     this.values = false;
@@ -43,6 +44,7 @@ function PureRangeSlider(selector, props) {
         if(!this.values){
             for(let i = this.start; i <= this.finish; i+=this.step){
                 let step = document.createElement('span');
+                step.classList.add(this.stopClass);
                 step.dataset.value = i;
                 step.style.left = (this.elem.clientWidth / (this.finish - this.start)) * (i - this.start) + 'px';
                 Object.assign(step.style,this.stepStyle);
@@ -54,15 +56,27 @@ function PureRangeSlider(selector, props) {
         this.slider.onmousedown = function(){
             // let elem = this;
             let left = this.elem.offsetLeft;
+            let right = this.elem.offsetLeft + this.elem.offsetWidth;
 
-            document.onmousemove = function(e) {
-                this.style.left = e.pageX - left + 'px';
-            }.bind(this);
+            document.onmousemove = (e) =>{
+                let delta = e.pageX - left;
+
+                if(delta < left){
+                    this.slider.style.left = 0;
+                    return;
+                }
+                if(delta > right){
+                    this.slider.style.left = right - (this.slider.offsetWidth/2);
+                    return;
+                }
+                this.slider.style.left = delta - (this.slider.offsetWidth/2) + 'px';
+            };
             document.onmouseup = () => {
                 document.onmouseup = null;
                 document.onmousemove = null;
             }
         }.bind(this);
+        return false;
     };
     this.defaultStyles = function(){
         this.lineStyle = {
@@ -84,7 +98,7 @@ function PureRangeSlider(selector, props) {
             height: '20px',
             top: '50%',
             backgroundColor: '#3c3d8f',
-            transform: 'translateY(-50%)',
+            transform: 'translate(-50%,-50%)',
             cursor: 'pointer'
         };
         this.stepStyle = {
