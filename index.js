@@ -57,7 +57,7 @@ function PureRangeSlider(selector, props) {
 
             document.onmousemove = function(e) {
                 this.style.left = e.pageX - left + 'px';
-            };
+            }.bind(this);
             document.onmouseup = () => {
                 document.onmouseup = null;
                 document.onmousemove = null;
