@@ -4,7 +4,7 @@ function PureRangeSlider(selector, props) {
     this.sliderClass = "js-pure-range-slider";
     this.stopClass = "js-pure-range-stop";
     this.start = 0;
-    this.finish = 100;
+    this.finish = 20;
     this.values = false;
     this.step = 1;
     this.selector = false;
@@ -28,9 +28,9 @@ function PureRangeSlider(selector, props) {
         this.slider.classList.add(this.sliderClass);
 
         if(!this.values){
-            this.slider.style.width = 1 / (this.finish - this.start) * 100 + '%';
+            this.slider.style.width = 1 / (this.finish - this.start) * 50 + '%';
         }else{
-            this.slider.style.width = this.values.length / 100 + '%';
+            this.slider.style.width = this.values.length / 50 + '%';
         }
 
         this.elem.append(this.slider);
