@@ -27,7 +27,7 @@ function PureRangeSlider(selector, props) {
         this.slider.classList.add(this.sliderClass);
 
         if(!this.values){
-            this.slider.style.width = (this.finish - this.start) / 100 + '%';
+            this.slider.style.width = 1 / (this.finish - this.start) * 100 + '%';
         }else{
             this.slider.style.width = this.values.length / 100 + '%';
         }
@@ -53,16 +53,17 @@ function PureRangeSlider(selector, props) {
     this.initSliding = function(){
         this.slider.onmousedown = function(){
             // let elem = this;
-            let startPosition = this.getBoundingClientRect().x;
+            let left = this.elem.offsetLeft;
+
             document.onmousemove = (e) => {
-                this.style.left = startPosition + e.pageX + 'px';
+                this.style.left = e.pageX - left + 'px';
             };
             document.onmouseup = () => {
                 document.onmouseup = null;
                 document.onmousemove = null;
             }
         };
-    }
+    };
     this.defaultStyles = function(){
         this.lineStyle = {
             position: 'absolute',
@@ -70,6 +71,7 @@ function PureRangeSlider(selector, props) {
             height: '2px',
             backgroundColor: '#333',
             top: '50%',
+            left: '50%',
             transform: 'translate(-50%, -50%)'
         };
         this.containerStyle = {
